@@ -3,7 +3,7 @@
 ## 1. Build the docker
 
 `
-sudo chmod 777 build.sh
+sudo chmod 777 build.sh \\
 source build.sh
 `
 
