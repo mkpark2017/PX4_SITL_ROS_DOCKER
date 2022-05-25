@@ -52,6 +52,9 @@ RUN pip install argcomplete argparse catkin_pkg catkin-tools cerberus coverage \
 
 RUN echo "source /opt/ros/melodic/setup.bash" >> ~/.bashrc
 
+WORKDIR /root
+RUN git clone https://github.com/mkpark2017/PX4-Autopilot.git
+
 # bootstrap rosdep
 RUN rosdep init && rosdep update
 
@@ -64,8 +67,6 @@ RUN apt-get install -y xterm
 RUN apt-get clean
 
 EXPOSE 5900
-
-WORKDIR /root
 
 COPY startup.sh /
 RUN chmod 777 /startup.sh
