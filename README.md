@@ -32,6 +32,6 @@ make px4_sitl_default gazebo
 roslaunch mavros px4.launch fcu_url:="udp://:14540@127.0.0.1:14557" gcs_url:="udp://@172.17.0.1:14550"
 ```
 
-### 7. Run QGroundControl and add communication link with the port 14550 for UDP
-
-### 8. Arm the motor and change the mode to what ever you want
+### 7. Run QGroundControl
+* add communication link with the port 14550 for UDP
+* arm the motor and change the mode to what ever you want
