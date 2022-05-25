@@ -3,7 +3,7 @@
 #
 
 FROM px4io/px4-dev-simulation-bionic:2021-09-08
-LABEL maintainer="Nuno Marques <n.marques21@hotmail.com>"
+LABEL maintainer="Minkyu Park <mk.park@unist.ac.kr>"
 
 ENV ROS_DISTRO melodic
 
