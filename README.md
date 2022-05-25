@@ -1,17 +1,23 @@
 # PX4_SITL_ROS_DOCKER
 
-Build the docker
+1. Build the docker
 
 `
 sudo chmod 777 build.sh
 source build.sh
 `
 
-Run the docker
+2. Run the docker
 
 `
 sudo chmod 777 run.sh
 source run.sh
 `
 
-Open VNC viewer 
+3. Open VNC viewer and put
+`
+0.0.0.0:5911
+`
+
+4. clone form https://github.com/mkpark2017/PX4-Autopilot.git
+5. 
