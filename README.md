@@ -19,3 +19,7 @@ source run.sh
 0.0.0.0:5911
 ```
 
+## 4. Move into the PX4-Autopilot
+```
+cd PX4-Autopilot
+```
