@@ -51,6 +51,9 @@ RUN pip install argcomplete argparse catkin_pkg catkin-tools cerberus coverage \
     serial six toml jsonschema==2.6.0
 
 RUN echo "source /opt/ros/melodic/setup.bash" >> ~/.bashrc
+RUN echo "export ROS_MASTER_URI=http://172.17.0.1:11311" >> ~/.bashrc
+RUN echo "export ROS_IP=172.17.0.2" >> ~/.bashrc
+
 
 WORKDIR /root
 RUN git clone https://github.com/mkpark2017/PX4-Autopilot.git
