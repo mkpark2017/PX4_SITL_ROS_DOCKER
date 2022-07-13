@@ -1,2 +1,2 @@
-nvidia-docker build -t mk/px4_gazebo .
+nvidia-docker build -t mk/px4 .
 
