@@ -8,4 +8,5 @@ nvidia-docker run -it \
     --device=/dev/nvidia-uvm \
     --device=/dev/nvidia0 \
     --name px4_gazebo \
+    --privileged \
     mk/px4_gazebo
