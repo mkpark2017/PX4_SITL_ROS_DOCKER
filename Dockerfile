@@ -80,4 +80,7 @@ RUN apt-get update && \
     xterm && \
     apt-get clean
 
+RUN rm /etc/apt/apt.conf.d/docker-clean
+RUN apt update -y
+
 EXPOSE 5900
