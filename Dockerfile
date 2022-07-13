@@ -5,6 +5,7 @@
 FROM px4io/px4-dev-simulation-bionic:2021-09-08
 LABEL maintainer="Minkyu Park <mk.park@unist.ac.kr>"
 
+
 ENV ROS_DISTRO melodic
 
 # setup ros keys
@@ -51,9 +52,6 @@ RUN pip install argcomplete argparse catkin_pkg catkin-tools cerberus coverage \
     serial six toml jsonschema==2.6.0
 
 RUN echo "source /opt/ros/melodic/setup.bash" >> ~/.bashrc
-RUN echo "export ROS_MASTER_URI=http://172.17.0.1:11311" >> ~/.bashrc
-RUN echo "export ROS_IP=172.17.0.2" >> ~/.bashrc
-
 
 WORKDIR /root
 RUN git clone https://github.com/mkpark2017/PX4-Autopilot.git
@@ -61,16 +59,14 @@ RUN git clone https://github.com/mkpark2017/PX4-Autopilot.git
 # bootstrap rosdep
 RUN rosdep init && rosdep update
 
-RUN apt-get update
-RUN apt-get install -y x11vnc
-RUN apt-get install -y xvfb
-RUN apt-get install -y fluxbox
-RUN apt-get install -y wmctrl
-RUN apt-get install -y xterm
-RUN apt-get clean
+RUN apt-get update && \
+    apt-get install -y net-tools \
+    x11-apps \
+    x11vnc \
+    xvfb \
+    fluxbox \
+    wmctrl \
+    xterm && \
+    apt-get clean
 
 EXPOSE 5900
-
-COPY startup.sh /
-RUN chmod 777 /startup.sh
-ENTRYPOINT ["/startup.sh", "--allow-root"]
