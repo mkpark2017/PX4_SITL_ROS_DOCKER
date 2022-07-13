@@ -17,6 +17,7 @@ RUN sh -c 'echo "deb http://packages.ros.org/ros/ubuntu `lsb_release -sc` main" 
 	&& apt-get -y --quiet --no-install-recommends install \
 		bash-completion \
 		geographiclib-tools \
+		libnvidia-gl-430 \
 		libeigen3-dev \
 		libgeographic-dev \
 		libopencv-dev \
