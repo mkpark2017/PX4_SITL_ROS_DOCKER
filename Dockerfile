@@ -15,6 +15,7 @@ RUN sh -c 'echo "deb http://packages.ros.org/ros/ubuntu `lsb_release -sc` main" 
 	&& sh -c 'echo "deb http://packages.ros.org/ros-shadow-fixed/ubuntu `lsb_release -sc` main" > /etc/apt/sources.list.d/ros-shadow.list' \
 	&& apt-get update \
 	&& apt-get -y --quiet --no-install-recommends install \
+		bash-completion \
 		geographiclib-tools \
 		libeigen3-dev \
 		libgeographic-dev \
