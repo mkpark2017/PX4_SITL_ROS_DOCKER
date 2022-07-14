@@ -2,23 +2,33 @@
 # PX4 ROS development environment
 #
 
-FROM px4io/px4-dev-simulation-bionic:2021-09-08
+FROM nvcr.io/nvidia/l4t-base:r32.4.3
 LABEL maintainer="Minkyu Park <mk.park@unist.ac.kr>"
 
 
 ENV ROS_DISTRO melodic
+ENV ROS_ROOT=/opt/ros/${ROS_DISTRO}
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+          git \
+		cmake \
+		build-essential \
+		curl \
+		wget \
+		gnupg2 \
+		lsb-release \
+		ca-certificates \
+    && rm -rf /var/lib/apt/lists/*
 
 # setup ros keys
+RUN sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
 RUN curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | apt-key add -
 
-RUN sh -c 'echo "deb http://packages.ros.org/ros/ubuntu `lsb_release -sc` main" > /etc/apt/sources.list.d/ros-latest.list' \
-	&& sh -c 'echo "deb http://packages.ros.org/ros-shadow-fixed/ubuntu `lsb_release -sc` main" > /etc/apt/sources.list.d/ros-shadow.list' \
-	&& apt-get update \
-	&& apt-get -y --quiet --no-install-recommends install \
-		bash-completion \
+RUN apt-get update
+RUN apt-get -y --quiet --no-install-recommends install \
 		geographiclib-tools \
-		nvidia-driver-430 \
-		libnvidia-gl-430 \
 		libeigen3-dev \
 		libgeographic-dev \
 		libopencv-dev \
@@ -26,8 +36,10 @@ RUN sh -c 'echo "deb http://packages.ros.org/ros/ubuntu `lsb_release -sc` main" 
 		python-pip \
 		python-tk \
 		ros-$ROS_DISTRO-gazebo-ros-pkgs \
-		ros-$ROS_DISTRO-mav-msgs \
-		ros-$ROS_DISTRO-mavlink \
+		ros-$ROS_DISTRO-mav-msgs
+
+
+RUN apt-get -y install ros-$ROS_DISTRO-mavlink \
 		ros-$ROS_DISTRO-mavros \
 		ros-$ROS_DISTRO-mavros-extras \
 		ros-$ROS_DISTRO-octomap \
@@ -49,10 +61,10 @@ RUN sh -c 'echo "deb http://packages.ros.org/ros/ubuntu `lsb_release -sc` main" 
 # to compile using catkin without it.
 RUN pip install wheel setuptools
 # FIXME: regression in control>0.8.4 (used by px4tools) does not run on Python 2.
-RUN pip install argcomplete argparse catkin_pkg catkin-tools cerberus coverage \
-    empy jinja2 matplotlib==2.2.* numpy pkgconfig control==0.8.4 px4tools pygments \
-    pymavlink packaging pyros-genmsg pyulog==0.8.0 pyyaml requests rosdep rospkg \
-    serial six toml jsonschema==2.6.0
+#RUN pip install argcomplete argparse catkin_pkg catkin-tools cerberus coverage \
+#    empy jinja2 matplotlib==2.2.* numpy pkgconfig control==0.8.4 px4tools pygments \
+#    pymavlink packaging pyros-genmsg pyulog==0.8.0 pyyaml requests rosdep rospkg \
+#    serial six toml jsonschema==2.6.0
 
 RUN echo "# enable bash completion in interactive shells \n\
 if ! shopt -oq posix; then \n\
@@ -67,9 +79,10 @@ fi" >> ~/.bashrc
 RUN echo "source /opt/ros/melodic/setup.bash" >> ~/.bashrc
 
 WORKDIR /root
-RUN git clone https://github.com/mkpark2017/PX4-Autopilot.git
+#RUN git clone https://github.com/mkpark2017/PX4-Autopilot.git
 
 # bootstrap rosdep
+RUN pip install rosdep
 RUN rosdep init && rosdep update
 
 RUN apt-get update && \
