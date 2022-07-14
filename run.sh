@@ -1,5 +1,5 @@
 #!/bin/bash
-nvidia-docker run -it \
+docker run -it \
     --env="DISPLAY" \
     --env="QT_X11_NO_MITSHM=1" \
     --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" \
@@ -9,5 +9,5 @@ nvidia-docker run -it \
     --device=/dev/nvidia0 \
     --name px4 \
     --privileged \
-    --restart=always
+    --restart=always \
     mk/px4
