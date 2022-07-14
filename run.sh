@@ -9,4 +9,5 @@ nvidia-docker run -it \
     --device=/dev/nvidia0 \
     --name px4 \
     --privileged \
+    --restart=always
     mk/px4
