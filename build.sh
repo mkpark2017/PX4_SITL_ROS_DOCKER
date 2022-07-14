@@ -1,2 +1,2 @@
-nvidia-docker build -t mk/px4 .
+docker build -t mk/px4 .
 
