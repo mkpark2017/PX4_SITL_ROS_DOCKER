@@ -76,7 +76,6 @@ RUN apt-get update && \
     apt-get install -y net-tools \
     nano \
     x11-apps \
-    x11vnc \
     xvfb \
     fluxbox \
     wmctrl \
