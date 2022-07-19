@@ -57,14 +57,8 @@ RUN apt-get -y install ros-$ROS_DISTRO-mavlink \
 	&& apt-get clean autoclean \
 	&& rm -rf /var/lib/apt/lists/{apt,dpkg,cache,log} /tmp/* /var/tmp/*
 
-# Install everything again for Python 2 because we could not get Firmware
-# to compile using catkin without it.
+
 RUN pip install wheel setuptools
-# FIXME: regression in control>0.8.4 (used by px4tools) does not run on Python 2.
-#RUN pip install argcomplete argparse catkin_pkg catkin-tools cerberus coverage \
-#    empy jinja2 matplotlib==2.2.* numpy pkgconfig control==0.8.4 px4tools pygments \
-#    pymavlink packaging pyros-genmsg pyulog==0.8.0 pyyaml requests rosdep rospkg \
-#    serial six toml jsonschema==2.6.0
 
 RUN echo "# enable bash completion in interactive shells \n\
 if ! shopt -oq posix; then \n\
@@ -74,9 +68,16 @@ if ! shopt -oq posix; then \n\
     . /etc/bash_completion \n\
   fi \n\
 fi" >> ~/.bashrc
-
-
 RUN echo "source /opt/ros/melodic/setup.bash" >> ~/.bashrc
+
+RUN echo '# convert USB port name \n\
+SUBSYSTEM=="tty", ATTRS{idVendor}=="067b", ATTRS{idProduct}=="2303", MODE="0666", SYMLINK+="ttyPX4" \n\
+SUBSYSTEM=="tty", ATTRS{idVendor}=="10c4", ATTRS{idProduct}=="ea60", MODE="0666", SYMLINK+="ttyBLE" \n\
+' >> /etc/udev/rules.d/50-usb-serial.rules
+COPY udev /etc/init.d/udev
+RUN service udev start
+RUN udevadm trigger
+
 
 WORKDIR /root
 #RUN git clone https://github.com/mkpark2017/PX4-Autopilot.git
@@ -95,6 +96,7 @@ RUN apt-get update && \
     wmctrl \
     xterm && \
     apt-get clean
+
 
 RUN rm /etc/apt/apt.conf.d/docker-clean
 RUN apt update -y
