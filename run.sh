@@ -12,3 +12,4 @@ docker run -it \
     --privileged \
     --restart=always \
     mk/px4
+

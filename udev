@@ -58,23 +58,6 @@ my_tty() {
   readlink --silent /proc/self/fd/0 || true
 }
 
-warn_if_interactive() {
-  if [ "$RUNLEVEL" = "S" -a "$PREVLEVEL" = "N" ]; then
-    return
-  fi
-
-  TTY=$(my_tty)
-  if [ -z "$TTY" -o "$TTY" = "/dev/console" -o "$TTY" = "/dev/null" ]; then
-    return
-  fi
-
-  printf "\n\n\nIt has been detected that the command\n\n\t$0 $*\n\n"
-  printf "has been run from an interactive shell.\n"
-  printf "It will probably not do what you expect, so this script will wait\n"
-  printf "60 seconds before continuing. Press ^C to stop it.\n"
-  printf "RUNNING THIS COMMAND IS HIGHLY DISCOURAGED!\n\n\n\n"
-  sleep 60
-}
 
 make_static_nodes() {
   [ -e /lib/modules/$(uname -r)/modules.devname ] || return 0
@@ -134,10 +117,6 @@ if [ ! -d /sys/class/ ]; then
   log_end_msg 1
 fi
 
-#if ! ps --no-headers --format args ax | egrep -q '^\['; then
-#  log_warning_msg "udev does not support containers, not started"
-#  exit 0
-#fi
 
 if [ -d /sys/class/mem/null -a ! -L /sys/class/mem/null ] || \
    [ -e /sys/block -a ! -e /sys/class/block ]; then
@@ -152,9 +131,6 @@ fi
 
 case "$1" in
     start)
-    if [ ! -e "/run/udev/" ]; then
-	warn_if_interactive
-    fi
 
     if [ -w /sys/kernel/uevent_helper ]; then
 	echo > /sys/kernel/uevent_helper

@@ -75,9 +75,6 @@ SUBSYSTEM=="tty", ATTRS{idVendor}=="067b", ATTRS{idProduct}=="2303", MODE="0666"
 SUBSYSTEM=="tty", ATTRS{idVendor}=="10c4", ATTRS{idProduct}=="ea60", MODE="0666", SYMLINK+="ttyBLE" \n\
 ' >> /etc/udev/rules.d/50-usb-serial.rules
 COPY udev /etc/init.d/udev
-RUN service udev start
-RUN udevadm trigger
-
 
 WORKDIR /root
 #RUN git clone https://github.com/mkpark2017/PX4-Autopilot.git
@@ -102,3 +99,7 @@ RUN rm /etc/apt/apt.conf.d/docker-clean
 RUN apt update -y
 
 EXPOSE 5900
+
+COPY startup.sh /.
+RUN chmod 777 /startup.sh
+ENTRYPOINT /startup.sh --allow-root && /bin/bash
