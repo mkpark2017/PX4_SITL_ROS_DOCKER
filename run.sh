@@ -11,5 +11,6 @@ docker run -it \
     --name px4 \
     --privileged \
     --restart=always \
+    -net=host \
     mk/px4
 
