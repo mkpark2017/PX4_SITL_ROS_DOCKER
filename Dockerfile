@@ -98,8 +98,6 @@ RUN apt-get update && \
 RUN rm /etc/apt/apt.conf.d/docker-clean
 RUN apt update -y
 
-EXPOSE 5900
-
 COPY startup.sh /.
 RUN chmod 777 /startup.sh
 ENTRYPOINT /startup.sh --allow-root && /bin/bash
