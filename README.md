@@ -17,7 +17,7 @@ source run.sh
 xhost +
 ```
 
-### 4. Move into the PX4-Autopilot
+### 4. Move into the PX4-Autopilot (in docker)
 ```
 cd PX4-Autopilot
 ```
