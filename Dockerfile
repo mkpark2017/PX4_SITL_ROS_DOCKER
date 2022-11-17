@@ -17,7 +17,6 @@ RUN sh -c 'echo "deb http://packages.ros.org/ros/ubuntu `lsb_release -sc` main" 
 	&& apt-get -y --quiet --no-install-recommends install \
 		bash-completion \
 		geographiclib-tools \
-		nvidia-driver-470 \
 		libeigen3-dev \
 		libgeographic-dev \
 		libopencv-dev \
@@ -78,6 +77,7 @@ RUN apt-get update && \
     xvfb \
     fluxbox \
     wmctrl \
+    nvidia-driver-470 \
     xterm && \
     apt-get clean
 
