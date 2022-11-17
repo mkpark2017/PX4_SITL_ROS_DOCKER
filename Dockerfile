@@ -47,10 +47,31 @@ RUN sh -c 'echo "deb http://packages.ros.org/ros/ubuntu `lsb_release -sc` main" 
 # to compile using catkin without it.
 RUN pip install wheel setuptools
 # FIXME: regression in control>0.8.4 (used by px4tools) does not run on Python 2.
-RUN pip install argcomplete argparse catkin_pkg catkin-tools cerberus coverage \
-    empy jinja2 matplotlib==2.2.* numpy pkgconfig control==0.8.4 px4tools pygments \
-    pymavlink packaging pyros-genmsg pyulog==0.8.0 pyyaml requests rosdep rospkg \
-    serial six toml jsonschema==2.6.0
+RUN pip install argcomplete
+RUN pip install argparse
+RUN pip install catkin_pkg
+RUN pip install catkin-tools
+RUN pip install cerberus
+RUN pip install coverage
+RUN pip install empy
+RUN pip install jinja2
+RUN pip install matplotlib==2.2.*
+RUN pip install numpy
+RUN pip install pkgconfig
+RUN pip install control==0.8.4
+RUN pip install pygments
+RUN pip install pymavlink
+RUN pip install packaging
+RUN pip install pyros-genmsg
+RUN pip install pyulog==0.8.0
+RUN pip install pyyaml
+RUN pip install requests
+RUN pip install rosdep
+RUN pip install rospkg
+RUN pip install serial
+RUN pip install six
+RUN pip install toml
+RUN pip install jsonschema==2.6.0
 
 RUN echo "# enable bash completion in interactive shells \n\
 if ! shopt -oq posix; then \n\
