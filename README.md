@@ -1,7 +1,7 @@
 # PX4_SITL_ROS_DOCKER
 
 ### 1. Build the docker
-* Edit nvidia-driver version to match your GPU and driver (e.g., 430 -> 470)
+* Edit nvidia-driver version to match your GPU and driver (e.g., 470 -> 530)
 ```
 sudo chmod 777 build.sh
 source build.sh
