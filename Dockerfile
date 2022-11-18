@@ -70,7 +70,7 @@ RUN git clone https://github.com/mkpark2017/PX4-Autopilot.git
 # bootstrap rosdep
 RUN rosdep init && rosdep update
 
-RUN apt-get install -y nvidia-driver-470
+#RUN apt-get install -y nvidia-driver-470
 
 
 RUN apt-get update && \
