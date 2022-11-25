@@ -12,5 +12,5 @@ docker run -it \
     --privileged \
     --restart=always \
     --net=host \
-    mk/px4
+    asl/px4
 
